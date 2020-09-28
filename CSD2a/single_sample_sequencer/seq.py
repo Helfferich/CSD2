@@ -61,26 +61,17 @@ for fortemp in i:
     timestamps16th.append(stamp)
 
 MS=60000/bpm
-steptime=MS/4
 count=-1
-
 bpmstamps = []
 timestamps16th.append(16)
 for temp in timestamps16th:
+    #print(count)
     if ((count+2)<len(timestamps16th)):
         count=count+1
         number = timestamps16th[(count+1)] - timestamps16th[count]
-        Timebetween=number*steptime
-        bpmstamps.append
+        #print(number)
+        Timebetween=number*(MS/4)
+        bpmstamps.append(Timebetween)
     else:
         break
 print(bpmstamps)
-    
-    
-    
-    
-    
-
-
-
-

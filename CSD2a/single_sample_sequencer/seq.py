@@ -33,7 +33,7 @@ for fortemp in i:
             temp=fortemp*4
             try:
                 temp=temp+temp_last
-                round(temp_last=temp)
+                round(temp_last=temp)   
             except: 
                 temp_last=temp
             temp=round(temp)

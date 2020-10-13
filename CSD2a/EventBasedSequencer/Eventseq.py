@@ -18,10 +18,11 @@ def inst(inst, name):
     count=0
     print("Type stepnumber to toggle")
     print("Startin at 0")
+    print("Ender d when done")
     for temp in templist:
         count=count+1
         print(inst)
-        step=input(f'{name}'+"step:")
+        step=input(f'{name}'+"step:")   
         count = count % 24
         if (count==10):
             print("TIP: type enorme getaalen voor een soort random")
@@ -86,7 +87,7 @@ for x in eventNr:
 #seq
 MS=float(60000/bpm)
 S=MS/1000
-sleeptime=MS/10000ç
+sleeptime=MS/10000
 
 while True:
     for  curstep in range(16):

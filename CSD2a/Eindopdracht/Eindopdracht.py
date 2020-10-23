@@ -45,13 +45,18 @@ def inst(inst, name):
             if (step=='d'):
                 print("aight")
             else:
-                step=int(step)%len(k)
+                step=int(step)%len(inst)
                 if (inst[step]==0):
                     print("Kans van 0 t/m 100")
                     inst[step]=(int(input("Kans:"))%101)
                     #IDEE: enkel enter switchts 0 of 100
                 else:
                     inst[step]=0
+                '''if (step == fill):
+                    lengte=inst
+                    inst=[]
+                    for len(lengte) in inst:
+                        inst.append(1)''' 
                 templist.append(0)
         except:
             print("Je hebt waarschijnlijk woorden of helemaal niks getypt. Misschien zelfs floats...")
@@ -60,7 +65,6 @@ def inst(inst, name):
 #INSTPlay
 def playloop(inst, name):
     rando=int(random.random()*100)
-    return
     if (inst[(curstep)]>rando):
         wave_obj = sa.WaveObject.from_wave_file(str(f'{proj_folder}/media/{name}.wav'))
         play_obj = wave_obj.play()
@@ -116,37 +120,36 @@ for x in eventNr:
             bpm = cbpm
             print(f"Enterd without a valid new bpm in numbers so: keeping {cbpm} bpm")
             cbpm=bpm
-#Tijd        
-    MS=float(60000/bpm)
-    S=MS/1000
-    sleeptime=MS/10000
 
 #Maat
     if (inp=='ts'):
         try:
             print("Huidige Tijdseenheid:", f'{tijds}'+'/'+f'{eenheid}')
+            print("Maximaal: 32/128")
             tijds = int(input("Time:"))
             eenheid = int(input("Signature:"))
             temp=(math.log(eenheid,2))
+            if (tijds>32) or (tijds<2) or (eenheid<2) or (eenheid>128):
+                tijds=ctijds
+                eenheid=ceenheid
+                print(f"Maatsoort teveel of te weinig dus: behoud {tijds}/{eenheid}")
             if (tijds==eenheid):
                 print(f"naar beneden geschaald omdat {tijds}/{eenheid} hetzelfde is als 4/4") 
                 tijds=4
                 eenheid=4
             if (temp.is_integer()):
-                ts=cts
                 print("Nieuwe Tijdseenheid:", f'{tijds}'+'/'+f'{eenheid}')
                 ts = tijds*eenheid
-                ts = int(ts /(eenheid/2))
             else:
                 tijds=ctijds
                 eenheid=ceenheid
-                print(f"Enterd without a valid new TimeSignature in numbers so: keeping {tijds}/{eenheid}")
+                print(f"Maatsoort niet valide dus (Waarschijnlijk is de soort geen veelvoud van 2): behoud {tijds}/{eenheid}")
             ctijds=tijds
             ceenheid=eenheid
         except:
             tijds=ctijds
             eenheid=ceenheid
-            print(f"Enterd without a valid new TimeSignature in numbers so: keeping {tijds}/{eenheid}")
+            print(f"Maatsoort niet valide dus: behoud {tijds}/{eenheid}")
         k=[]
         s=[]
         h=[]
@@ -155,11 +158,23 @@ for x in eventNr:
             s.append(0)
             h.append(0)
 
+#—————————————————————————————————————# 
+#                 Play            
+#—————————————————————————————————————# 
+
+
+
+#Tijd        
+bpm = bpm * (eenheid/4)
+MS=float(60000/bpm)
+S=MS/1000
+sleeptime=MS/10000
 #seq
-while True:
+while True: 
     for  curstep in range(ts):
         playloop(k, 'kick')
         playloop(s, 'snare')
         playloop(h, 'hihat')
         print(curstep)
         time.sleep(sleeptime)
+        
